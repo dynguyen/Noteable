@@ -28,6 +28,8 @@ import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import android.graphics.Bitmap;
+
 
 
 public class L0_Segment
@@ -37,8 +39,8 @@ public class L0_Segment
 	
 	public boolean hasNote;
 	
-	private BufferedImage buffImage;
-	private BufferedImage dupImage;
+	private Bitmap buffImage;
+	private Bitmap dupImage;
 	private StaveDetection staveDetection;
 	private Staves stave;
 	
@@ -59,7 +61,7 @@ public class L0_Segment
 		hasNote = false;
 	}
 	
-	public void setParameters(BufferedImage buffImage, BufferedImage dupImage, StaveDetection staveDetection, Staves stave)
+	public void setParameters(Bitmap buffImage, Bitmap dupImage, StaveDetection staveDetection, Staves stave)
 	{
 		this.buffImage = buffImage;
 		this.dupImage = dupImage;

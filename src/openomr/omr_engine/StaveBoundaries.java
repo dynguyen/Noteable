@@ -26,13 +26,15 @@ package openomr.omr_engine;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
+import android.graphics.Bitmap;
+
 public class StaveBoundaries
 {
 	private double MEASURE_PIXELS = 0.9;
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 	private StaveDetection staveDetection;
 
-	public StaveBoundaries(BufferedImage buffImage, StaveDetection staveDetection)
+	public StaveBoundaries(Bitmap buffImage, StaveDetection staveDetection)
 	{
 		this.buffImage = buffImage;
 		this.staveDetection = staveDetection;
@@ -107,7 +109,7 @@ public class StaveBoundaries
 				int bCount = 0;
 				for (int j = start; j < height + start; j += 1)
 				{
-					int bPix = buffImage.getRGB(i, j);
+					int bPix = buffImage.getPixel(i, j);
 					if (bPix != -1)
 						bCount += 1;
 				}
@@ -198,7 +200,7 @@ public class StaveBoundaries
 				break;
 			for (int i = start; i < stop; i += 1)
 			{
-				int pix = buffImage.getRGB(xStart + j, i);
+				int pix = buffImage.getPixel(xStart + j, i);
 				if (pix != -1)
 					bCount += 1;
 			}

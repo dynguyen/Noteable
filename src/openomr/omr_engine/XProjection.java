@@ -25,6 +25,8 @@ package openomr.omr_engine;
 
 import java.awt.image.BufferedImage;
 
+import android.graphics.Bitmap;
+
 /**
  * The <code> XProjection </code> class will calculate the X-Projection of an image. The constructor
  * is given a <code> BufferedImage </code> and then the <code> calcXProjection </method> is invoked
@@ -49,9 +51,9 @@ public class XProjection
 {
 	private int xProjection[];
 	private int size;
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 	
-	public XProjection(BufferedImage buffImage)
+	public XProjection(Bitmap buffImage)
 	{
 		this.buffImage = buffImage;
 	}
@@ -78,7 +80,7 @@ public class XProjection
 				int color = 0;
 				try
 				{
-					color = buffImage.getRGB(i, j);
+					color = buffImage.getPixel(i, j);
 				}
 				catch (ArrayIndexOutOfBoundsException e)
 				{

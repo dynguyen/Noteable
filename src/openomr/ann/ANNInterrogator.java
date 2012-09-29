@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.util.Vector;
@@ -34,6 +35,8 @@ import org.joone.engine.Layer;
 import org.joone.io.MemoryInputSynapse;
 import org.joone.io.MemoryOutputSynapse;
 import org.joone.net.NeuralNet;
+
+import android.content.Context;
 
 public class ANNInterrogator
 {
@@ -46,12 +49,12 @@ public class ANNInterrogator
 	private String directory;
 	private Vector<String> symbolCollection;
 	
-	public ANNInterrogator()
+	public ANNInterrogator(Context context)
 	{
 		try
 		{
 			directory = System.getProperty("user.dir") + PATH_SEPERATOR + "neuralnetwork";
-			FileInputStream stream = new FileInputStream(directory + PATH_SEPERATOR + neuralNetName);
+			InputStream stream = context.getAssets().open(neuralNetName);
 			//System.out.println(directory + PATH_SEPERATOR + neuralNetName);
 			ObjectInputStream objIn = new ObjectInputStream(stream);
 
@@ -59,7 +62,7 @@ public class ANNInterrogator
 			//numOutputs = (int)objIn.readInt();
 			//imageSize = (int)objIn.readInt();
 
-			loadSymbols(directory);
+			loadSymbols(context);
 		}
 		catch (Exception e)
 		{
@@ -68,11 +71,7 @@ public class ANNInterrogator
 		
 	}
 	
-	public ANNInterrogator(NeuralNet nnet)
-	{
-		this.nnet = nnet;
-		loadSymbols(directory);
-	}
+
 	
 	public SymbolConfidence interogateNN(double data[][])
 	{		
@@ -116,32 +115,28 @@ public class ANNInterrogator
 	
 	
 	@SuppressWarnings("unchecked")
-	private void loadSymbols(String dir)
-	{
+	private void loadSymbols(Context context) {
 		//Load symbol names from input file
 		int symbolsUsed = 0;
 		symbolCollection = new Vector();
-		try
-		{
-			BufferedReader dataIn = new BufferedReader(new InputStreamReader(new FileInputStream(new File(dir+PATH_SEPERATOR+symbolFileName))));
+		try {
+			BufferedReader dataIn;
+			dataIn = new BufferedReader(new InputStreamReader(context.getAssets().open(symbolFileName)));
+			
 			while (true)
 			{
-				try
-				{
-					String temp = dataIn.readLine();
-					if (temp == null)
-						break;
-					symbolCollection.add(temp);
-					symbolsUsed+=1;
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-				}
+				String temp = dataIn.readLine();
+				if (temp == null)
+					break;
+				symbolCollection.add(temp);
+				symbolsUsed+=1;
 			}
-		} catch (FileNotFoundException e)
-		{
-			System.out.println("Symbol file not found!");
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public NeuralNet getNeuralNetwork() {
+		return nnet;
 	}
 }

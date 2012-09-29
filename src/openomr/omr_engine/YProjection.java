@@ -25,6 +25,8 @@ package openomr.omr_engine;
 
 import java.awt.image.*;
 
+import android.graphics.Bitmap;
+
 /**
  * The <code> YProjection </code> class will calculate the Y-Projection of an image. The constructor
  * is given a <code> BufferedImage </code> and then the <code> calcYProjection </method> is invoked
@@ -47,11 +49,11 @@ import java.awt.image.*;
 
 public class YProjection
 {
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 	private int height;
 	private int yProjection[];
 	
-	public YProjection(BufferedImage buffImage)
+	public YProjection(Bitmap buffImage)
 	{
 		this.buffImage = buffImage;
 		height = buffImage.getHeight();
@@ -79,7 +81,7 @@ public class YProjection
 				int color;
 				try
 				{
-					color = buffImage.getRGB(j, i);
+					color = buffImage.getPixel(j, i);
 					if (color == -1) // white pixel
 					{
 						// Do nothing

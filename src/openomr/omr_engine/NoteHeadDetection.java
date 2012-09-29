@@ -26,6 +26,8 @@ package openomr.omr_engine;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+import android.graphics.Bitmap;
+
 import openomr.dataanalysis.GNUPlotGenerator;
 
 
@@ -40,9 +42,9 @@ public class NoteHeadDetection
 	private YProjection yProj;
 	private int height;
 	private int width;
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 
-	public NoteHeadDetection(BufferedImage buffImage, StaveParameters staveParams)
+	public NoteHeadDetection(Bitmap buffImage, StaveParameters staveParams)
 	{
 		this.buffImage = buffImage;
 		this.staveParams = staveParams;

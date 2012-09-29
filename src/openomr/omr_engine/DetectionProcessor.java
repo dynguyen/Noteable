@@ -32,14 +32,16 @@ import openomr.imageprocessing.CopyImage;
 
 import org.joone.net.NeuralNet;
 
+import android.graphics.Bitmap;
+
 
 public class DetectionProcessor
 {
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 	private StaveDetection staveDetection;
-	private BufferedImage dupImage;
+	private Bitmap dupImage;
 	
-	public DetectionProcessor(BufferedImage buffImage, StaveDetection staveDetection, NeuralNet neuralNetwork)
+	public DetectionProcessor(Bitmap buffImage, StaveDetection staveDetection, NeuralNet neuralNetwork)
 	{
 		this.buffImage = buffImage;
 		this.staveDetection = staveDetection;
@@ -50,8 +52,8 @@ public class DetectionProcessor
 		setTopBottomBoundaries();
 		setBoundaries();
 
-		dupImage = (new CopyImage(buffImage)).getCopyOfImage();
-
+		//dupImage = (new CopyImage(buffImage)).getCopyOfImage();
+		dupImage = Bitmap.createBitmap(buffImage);
 		findAllSymbols();
 	}
 
@@ -116,7 +118,7 @@ public class DetectionProcessor
 		}
 	}
 
-	public BufferedImage getDupImage()
+	public Bitmap getDupImage()
 	{
 		return dupImage;
 	}

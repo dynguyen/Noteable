@@ -25,6 +25,8 @@ package openomr.omr_engine;
 
 import java.awt.image.*;
 
+import android.graphics.Bitmap;
+
 /** The <code> StaveParameters </code> is a class responsible for calculating two important paramters
  * in a BufferedImage. Those two parameters are the thickness of a stave line and the distance between
  * two stave lines. Given those two parameters, a lower and upper threshold value is determined.
@@ -49,7 +51,7 @@ import java.awt.image.*;
 
 public class StaveParameters
 {
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 	private int len = 100;
 	private int wPixels[], bPixels[];
 	private int height, width;
@@ -68,7 +70,7 @@ public class StaveParameters
 	 * Initialises the StaveParameters class with buffImage
 	 */
 	
-	public StaveParameters(BufferedImage buffImage)
+	public StaveParameters(Bitmap buffImage)
 	{
 		this.buffImage = buffImage;
 		wPixels = new int[len];
@@ -160,12 +162,12 @@ public class StaveParameters
 
 			for (int j = 0; j < height - 1; j += 1)
 			{
-				int color = buffImage.getRGB(i, j);
+				int color = buffImage.getPixel(i, j);
 
 				if (color != -1 && !stop) // -1 == white pixel
 				{
 					bcnt += 1;
-					color = buffImage.getRGB(i, j + 1);
+					color = buffImage.getPixel(i, j + 1);
 					if (color == -1)
 					{
 						stop = true;
@@ -176,7 +178,7 @@ public class StaveParameters
 				} else
 				{
 					wcnt += 1;
-					color = buffImage.getRGB(i, j + 1);
+					color = buffImage.getPixel(i, j + 1);
 					if (color != -1)
 					{
 						stop = false;
