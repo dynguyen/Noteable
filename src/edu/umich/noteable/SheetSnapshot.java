@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,10 +49,13 @@ public class SheetSnapshot extends Activity {
     
    // startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
     	
-    	Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+    	Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     	intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-    	File file = new File("/storage/sdcard0/DCIM/new.bmp");
-    	intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+    	//File pictureFile = new File(Environment.getExternalStoragePublicDirectory(
+    	//		                         Environment.DIRECTORY_PICTURES), "MyCameraApp");
+    	//File picture = new File(pictureFile.getPath()+File.separator + "new" + ".bmp");
+    	File picFile = getOutputMediaFile();
+    	intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(picFile));
     	startActivityForResult(intent, CAMERA_PIC_REQUEST);
     
     }
@@ -61,12 +66,38 @@ public class SheetSnapshot extends Activity {
         	//Bitmap.createScaledBitmap(thumbnail, 1280, 720, true);
         	//ImageView image = (ImageView) findViewById(R.id.viewer);
         	//image.setImageBitmap(thumbnail);
-        	Bitmap bitmap = BitmapFactory.decodeFile("/storage/sdcard0/DCIM/new.bmp");
+        	//Intent intent = getIntent();
+        	//File picFile = intent.getExtras(File(MediaStore.EXTRA_OUTPUT));
+        	
+        	
+        	Uri u = data.getData();
+        	Bitmap bitmap = BitmapFactory.decodeFile(u.getPath());
         	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
         	
         	ImageView image = (ImageView) findViewById(R.id.viewer);
         	image.setImageBitmap(bit2);
         }  
     }
+    /** Create a File for saving the image */
+	private static File getOutputMediaFile(){
+
+	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+	              Environment.DIRECTORY_PICTURES), "MyCameraApp");
+
+	    if (! mediaStorageDir.exists()){
+	        if (! mediaStorageDir.mkdirs()){
+	            Log.d("MyCameraApp", "failed to create directory");
+	            return null;
+	        }
+	    }
+
+	    // Create a media file name
+	    File mediaFile;
+	        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+	        "IMG_"+ "new" + ".jpg");
+
+	    return mediaFile;
+	}
+
  
 }
