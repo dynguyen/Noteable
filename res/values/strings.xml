@@ -10,6 +10,7 @@
     <string name="title_activity_sheet_snapshot">SheetSnapshot</string>
     <string name="guidelines_title">Some guidelines:</string>
     <string name="guideline_placeholder">Coming Soon!</string>
-    <string name="cont">Continue</string>
+    <string name="takePic">Take Picture</string>
+    <string name="nextStep">Next Step</string>
 
 </resources>
