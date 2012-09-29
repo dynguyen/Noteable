@@ -48,8 +48,19 @@ public class ANNInterrogator
 	private String PATH_SEPERATOR = System.getProperty("file.separator");
 	private String directory;
 	private Vector<String> symbolCollection;
+	private static ANNInterrogator instance;
 	
-	public ANNInterrogator(Context context)
+	public static ANNInterrogator getInstance() {
+		return instance;
+	}
+	
+	public static ANNInterrogator getInstance(Context context) {
+		if (instance == null) {
+			instance = new ANNInterrogator(context);
+		} 
+		return instance;
+	}
+	private ANNInterrogator(Context context)
 	{
 		try
 		{
@@ -70,8 +81,6 @@ public class ANNInterrogator
 		}
 		
 	}
-	
-
 	
 	public SymbolConfidence interogateNN(double data[][])
 	{		

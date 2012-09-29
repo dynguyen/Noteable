@@ -23,13 +23,14 @@
 
 package openomr.omr_engine;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.util.Log;
 
 
+import openomr.ann.ANNInterrogator;
 import openomr.ann.SymbolConfidence;
 
 
@@ -177,13 +178,14 @@ public class L1_Segment
 
 						
 						//Test neural network
-						//double data[] = ANNPrepare.prepareImage(buffImage.getSubimage(xStart+4, yStart, xStop - xStart+3, yEnd+6));
-						double data[] = null;
+						
+						double data[] = prepareImage(buffImage, xStart+4, yStart, xStop - xStart+3, yEnd+6);
+
 						//GUI.getNeuralNetwork().testNet(neuralData);
 						double neuralData[][] = new double[1][128];
 						neuralData[0] = data;
-						//SymbolConfidence result = GUI.getANNInterrogator().interogateNN(neuralData);
-						SymbolConfidence result = null;
+
+						SymbolConfidence result = ANNInterrogator.getInstance().interogateNN(neuralData);
 						//Uncomment when NN is taken care of
 						L2_Segment l2_temp = new L2_Segment(yStart, result.getName(), result.getRMSE());
 						l2_temp.printInfo();
@@ -212,5 +214,26 @@ public class L1_Segment
 	public int getWidth()
 	{
 		return xStop - xStart;
+	}
+	
+	private double[] prepareImage(Bitmap image, int x, int y, int w, int h) {
+		String logString = "x: " + x + " y: " + y + " w: " + w + " h:" + h;
+		Log.d("Noteable", logString);
+		double inputs[] = new double[128];
+		//pixGrabber.grabPixels();
+		int pixArray[] = new int[1000000];
+		//pixArray = (int[]) pixGrabber.getPixels();
+		buffImage.getPixels(pixArray, 0, w, x, y, w, h);
+		for (int i = 0; i < 128; i += 1)
+		{
+			int red = Color.red(pixArray[x]);
+			int green = Color.green(pixArray[x]);
+			int blue = Color.blue(pixArray[x]);
+			float[] hsv = new float[10]; 
+			Color.RGBToHSV(red, green, blue, hsv);
+			inputs[i] = hsv[2]; //get luminosity
+		}
+		
+		return inputs;
 	}
 }
