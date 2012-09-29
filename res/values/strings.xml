@@ -2,8 +2,15 @@
 
     <string name="app_name">Noteable</string>
     <string name="hello_world">Hello world!</string>
+    <string name="welcome_message">Welcome to Noteable!</string>
+    <string name="begin_app">Please press Start to take a picture</string>
+    <string name="start">Start!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="title_activity_process">ProcessActivity</string>
+    <string name="title_activity_sheet_snapshot">SheetSnapshot</string>
+    <string name="guidelines_title">Some guidelines:</string>
+    <string name="guideline_placeholder">Coming Soon!</string>
+    <string name="takePic">Take Picture</string>
+    <string name="nextStep">Next Step</string>
 
 </resources>
