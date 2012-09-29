@@ -69,17 +69,23 @@ public class SheetSnapshot extends Activity {
         	//Intent intent = getIntent();
         	//File picFile = intent.getExtras(File(MediaStore.EXTRA_OUTPUT));
         	
+        	if (resultCode == RESULT_OK) {
+        		File imageFile = getOutputMediaFile();
+            	Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
+            	
+            	ImageView image = (ImageView) findViewById(R.id.viewer);
+            	image.setImageBitmap(bit2);
+        	} else if (resultCode == RESULT_CANCELED) {
+        		
+        	} else {
+        		
+        	}
         	
-        	Uri u = data.getData();
-        	Bitmap bitmap = BitmapFactory.decodeFile(u.getPath());
-        	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
-        	
-        	ImageView image = (ImageView) findViewById(R.id.viewer);
-        	image.setImageBitmap(bit2);
         }  
     }
     /** Create a File for saving the image */
-	private static File getOutputMediaFile(){
+	public static File getOutputMediaFile(){
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 	              Environment.DIRECTORY_PICTURES), "MyCameraApp");

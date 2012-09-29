@@ -2,7 +2,9 @@
     package="edu.umich.noteable"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="android.hardware.camera" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="15" />
