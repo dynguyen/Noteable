@@ -19,9 +19,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.app.Activity" />
+        </activity>
+        <activity
+            android:name=".SheetSnapshot"
+            android:label="@string/title_activity_sheet_snapshot" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.umich.Noteable.WelcomeActivity" />
         </activity>
     </application>
 
