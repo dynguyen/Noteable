@@ -33,6 +33,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.umich.Noteable.WelcomeActivity" />
         </activity>
+        <activity
+            android:name=".ProcessActivity"
+            android:label="@string/title_activity_process" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.umich.Noteable.SheetSnapshot" />
+        </activity>
     </application>
 
 </manifest>

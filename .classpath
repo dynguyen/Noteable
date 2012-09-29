@@ -5,8 +5,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="/Volumes/Macintosh HD/Users/vincentleung1991/git/Noteable/libs/joone-engine.jar"/>
-	<classpathentry kind="lib" path="/Volumes/Macintosh HD/Users/vincentleung1991/git/Noteable/libs/jcommon-1.0.17.jar"/>
-	<classpathentry kind="lib" path="/Volumes/Macintosh HD/Users/vincentleung1991/git/Noteable/libs/jfreechart-1.0.14.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

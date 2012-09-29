@@ -47,6 +47,7 @@
         android:layout_alignBaseline="@+id/button1"
         android:layout_alignBottom="@+id/button1"
         android:layout_alignParentRight="true"
-        android:text="@string/nextStep" />
+        android:text="@string/nextStep" 
+        android:onClick="processImage"/>
 
 </RelativeLayout>

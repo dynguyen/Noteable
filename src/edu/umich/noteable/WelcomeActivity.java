@@ -35,8 +35,8 @@ public class WelcomeActivity extends Activity {
     }
     
     public void pictureFeed(View vew){
-    Intent intent = new Intent(this, SheetSnapshot.class);
-    startActivity(intent);
+    	Intent intent = new Intent(this, SheetSnapshot.class);
+    	startActivity(intent);
     }
     
 

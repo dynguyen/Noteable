@@ -84,8 +84,15 @@ public class SheetSnapshot extends Activity {
         	
         }  
     }
+    
+    public void processImage(View view) {
+    	Intent intent = new Intent(this, ProcessActivity.class);
+    	intent.putExtra("IMAGE_PATH", getOutputMediaFile().getAbsolutePath());
+    	startActivity(intent);
+    }
+    
     /** Create a File for saving the image */
-	public static File getOutputMediaFile(){
+	private static File getOutputMediaFile(){
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 	              Environment.DIRECTORY_PICTURES), "MyCameraApp");
@@ -104,6 +111,7 @@ public class SheetSnapshot extends Activity {
 
 	    return mediaFile;
 	}
+	
 
  
 }
