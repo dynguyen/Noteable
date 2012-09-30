@@ -1,6 +1,10 @@
 package edu.umich.noteable;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import openomr.imageprocessing.DoBlackandWhite;
 
@@ -19,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class SheetSnapshot extends Activity {
 	private static final int CAMERA_PIC_REQUEST = 1337;
@@ -68,48 +73,64 @@ public class SheetSnapshot extends Activity {
     	//File pictureFile = new File(Environment.getExternalStoragePublicDirectory(
     	//		                         Environment.DIRECTORY_PICTURES), "MyCameraApp");
     	//File picture = new File(pictureFile.getPath()+File.separator + "new" + ".bmp");
-    	File picFile = new File(getOutputMediaFilePath());
+    	File picFile = new File(getOutputMediaFilePath("IMG_raw.jpg"));
     	intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(picFile));
     	startActivityForResult(intent, CAMERA_PIC_REQUEST);
     
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
-        if (requestCode == CAMERA_PIC_REQUEST) {  
-        	//Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        	
-        	//Bitmap.createScaledBitmap(thumbnail, 1280, 720, true);
-        	//ImageView image = (ImageView) findViewById(R.id.viewer);
-        	//image.setImageBitmap(thumbnail);
-        	//Intent intent = getIntent();
-        	//File picFile = intent.getExtras(File(MediaStore.EXTRA_OUTPUT));
-        	
+        if (requestCode == CAMERA_PIC_REQUEST) {
         	if (resultCode == RESULT_OK) {
-        		selectedImagePath = getOutputMediaFilePath();
-        		
+        		selectedImagePath = getOutputMediaFilePath("IMG_raw.jpg");
         	} else if (resultCode == RESULT_CANCELED) {
-        		
+        		Toast.makeText(getBaseContext(), "Canceled", Toast.LENGTH_SHORT).show();
+        		return;
         	} else {
-        		
+        		Toast.makeText(getBaseContext(), "Other", Toast.LENGTH_SHORT).show();
+        		return;
         	}
         } else if (requestCode == CHOOSE_PIC_REQUEST) {
-        	Uri selectedImagePathUri = data.getData();
-
-            selectedImagePath = selectedImagePathUri.getPath();
-            
-
+        	if (resultCode == RESULT_OK) {
+        		Uri selectedImagePathUri = data.getData();
+                selectedImagePath = selectedImagePathUri.getPath();
+        	} else if (resultCode == RESULT_CANCELED) {
+        		Toast.makeText(getBaseContext(), "Canceled", Toast.LENGTH_SHORT).show();
+        		return;
+        	} else {
+        		Toast.makeText(getBaseContext(), "Other", Toast.LENGTH_SHORT).show();
+        		return;
+        	}
         }
         File imageFile = new File(selectedImagePath);
     	Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
     	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
     	
-    	//ImageView image = (ImageView) findViewById(R.id.viewer);
-    	//image.setImageBitmap(bit2);
-    	
-    	DoBlackandWhite bit3 = new DoBlackandWhite(bit2);
-    	bit2 = bit3.doBW();
-    	
     	ImageView image = (ImageView) findViewById(R.id.viewer);
     	image.setImageBitmap(bit2);
+    	
+//    	DoBlackandWhite bwProcess = new DoBlackandWhite(bit2);
+//    	bit2 = bwProcess.doBW();
+//    	
+//    	selectedImagePath = getOutputMediaFilePath("IMG_processed.png");
+//    	ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//    	File processedImage = new File(selectedImagePath);
+//    	bit2.compress(Bitmap.CompressFormat.PNG, 40, bytes);
+//    	OutputStream imageOutput = null;
+//    	try {
+//			imageOutput = getContentResolver().openOutputStream(Uri.fromFile(processedImage));
+//			imageOutput.write(bytes.toByteArray());
+//			imageOutput.flush();
+//			imageOutput.close();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//    	
+//    	ImageView image = (ImageView) findViewById(R.id.viewer);
+//    	image.setImageBitmap(bit2);
     }
     
     public void processImage(View view) {
@@ -119,21 +140,20 @@ public class SheetSnapshot extends Activity {
     }
     
     /** Create a File for saving the image */
-	private static String getOutputMediaFilePath(){
+	private static String getOutputMediaFilePath(String fileName){
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-	              Environment.DIRECTORY_PICTURES), "MyCameraApp");
+	              Environment.DIRECTORY_PICTURES), "Noteable");
 
 	    if (! mediaStorageDir.exists()){
 	        if (! mediaStorageDir.mkdirs()){
-	            Log.d("MyCameraApp", "failed to create directory");
+	            Log.d("Noteable", "failed to create directory");
 	            return null;
 	        }
 	    }
 
 	    // Create a media file name
-	    return mediaStorageDir.getPath() + File.separator +
-	        "IMG_"+ "new" + ".jpg";
+	    return mediaStorageDir.getPath() + File.separator + fileName;
 
 	}
 	

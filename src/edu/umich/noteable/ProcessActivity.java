@@ -14,6 +14,7 @@ import com.leff.midi.MidiFile;
 import edu.umich.noteable.midi.MidiUtil;
 
 import openomr.ann.ANNInterrogator;
+import openomr.imageprocessing.DoBlackandWhite;
 import openomr.midi.ScoreGenerator;
 import openomr.omr_engine.DetectionProcessor;
 import openomr.omr_engine.StaveDetection;
@@ -31,6 +32,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
@@ -46,6 +48,8 @@ public class ProcessActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         String imagePath = getIntent().getExtras().getString("IMAGE_PATH");
         image = BitmapFactory.decodeFile(imagePath);
+        ImageView imageView = (ImageView) findViewById(R.id.imageView1);
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(image, 2048, 2048, true));
         ANNInterrogator ann = ANNInterrogator.getInstance(getBaseContext());
         neuralNetwork = ann.getNeuralNetwork();
     }
@@ -68,10 +72,12 @@ public class ProcessActivity extends Activity {
     }
 
     public void processImage(View view) {
-    	YProjection yproj = new YProjection(image);
-    	yproj.calcYProjection(0, image.getHeight(), 0, image.getWidth());
+    	DoBlackandWhite bwProcess = new DoBlackandWhite(image);
+    	Bitmap processedImage = bwProcess.doBW();
+    	YProjection yproj = new YProjection(processedImage);
+    	yproj.calcYProjection(0, processedImage.getHeight(), 0, processedImage.getWidth());
     	
-    	StaveParameters params = new StaveParameters(image);
+    	StaveParameters params = new StaveParameters(processedImage);
     	params.calcParameters();
     	
     	StaveDetection staveDetection = new StaveDetection(yproj, params);
@@ -81,7 +87,7 @@ public class ProcessActivity extends Activity {
     	if (staveDetection.getStaveList().size() == 0) {
     		Toast.makeText(getBaseContext(), "No staves recognized", Toast.LENGTH_SHORT).show();
     	} else {
-    		DetectionProcessor processor = new DetectionProcessor(image, staveDetection, neuralNetwork);
+    		DetectionProcessor processor = new DetectionProcessor(processedImage, staveDetection, neuralNetwork);
     		processor.processAll();
     		MidiFile midi = MidiUtil.generate(staveDetection.getStaveList());
         	File midiStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Noteable");

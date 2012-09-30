@@ -46,26 +46,14 @@ public class MidiUtil {
 					//System.out.println("Note: " + (tempNote.getNote()+64));
 					//add(tempNote.getNote()+64, tempNote.getDuration());
 					NoteOn on = new NoteOn(k*480, 0, tempNote.getNote() + 64, 100);
-					NoteOff off = new NoteOff(k*480 + 120, 0, tempNote.getNote() + 64, 0);
+					NoteOff off = new NoteOff(k*480 + tempNote.getDuration() * 40, 0, tempNote.getNote() + 64, 0);
 					noteTrack.insertEvent(on);
 					noteTrack.insertEvent(off);
-					//noteTrack.insertNote(0, tempNote.getNote() + 64, 10, 4800, 120);
 				}
 				//System.out.println("End Symbol");
 			}
 		}
-//		for(int i = 0; i < 80; i++) {
-//			
-//			int channel = 0, pitch = 1 + i, velocity = 100;
-//			NoteOn on = new NoteOn(i*480, channel, pitch, velocity);
-//			NoteOff off = new NoteOff(i*480 + 120, channel, pitch, 0);
-//			
-//			noteTrack.insertEvent(on);
-//			noteTrack.insertEvent(off);
-//			
-//			// There is also a utility function for notes that you should use instead of the above.
-//			noteTrack.insertNote(channel, pitch + 2, velocity, i*480, 120);
-//		}
+
 	
 		ArrayList<MidiTrack> tracks = new ArrayList<MidiTrack>();
 		tracks.add(tempoTrack);
