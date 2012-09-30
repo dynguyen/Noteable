@@ -28,7 +28,7 @@ import android.widget.Toast;
 public class SheetSnapshot extends Activity {
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	private static final int CHOOSE_PIC_REQUEST = 1500;
-	private String selectedImagePath;
+	private Uri selectedImagePath;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,11 +70,9 @@ public class SheetSnapshot extends Activity {
     	
     	Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     	intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-    	//File pictureFile = new File(Environment.getExternalStoragePublicDirectory(
-    	//		                         Environment.DIRECTORY_PICTURES), "MyCameraApp");
-    	//File picture = new File(pictureFile.getPath()+File.separator + "new" + ".bmp");
-    	File picFile = new File(getOutputMediaFilePath("IMG_raw.jpg"));
-    	intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(picFile));
+
+    	Uri picFile = getOutputMediaFilePath("IMG_raw.jpg");
+    	intent.putExtra(MediaStore.EXTRA_OUTPUT, picFile);
     	startActivityForResult(intent, CAMERA_PIC_REQUEST);
     
     }
@@ -82,32 +80,32 @@ public class SheetSnapshot extends Activity {
         if (requestCode == CAMERA_PIC_REQUEST) {
         	if (resultCode == RESULT_OK) {
         		selectedImagePath = getOutputMediaFilePath("IMG_raw.jpg");
+        		Toast.makeText(getBaseContext(), "Photo taken", Toast.LENGTH_SHORT);
         	} else if (resultCode == RESULT_CANCELED) {
         		Toast.makeText(getBaseContext(), "Canceled", Toast.LENGTH_SHORT).show();
         		return;
         	} else {
-        		Toast.makeText(getBaseContext(), "Other", Toast.LENGTH_SHORT).show();
+        		Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
         		return;
         	}
         } else if (requestCode == CHOOSE_PIC_REQUEST) {
         	if (resultCode == RESULT_OK) {
-        		Uri selectedImagePathUri = data.getData();
-                selectedImagePath = selectedImagePathUri.getPath();
+                selectedImagePath = data.getData();
+                Toast.makeText(getBaseContext(), "Picture selected", Toast.LENGTH_SHORT);
         	} else if (resultCode == RESULT_CANCELED) {
         		Toast.makeText(getBaseContext(), "Canceled", Toast.LENGTH_SHORT).show();
         		return;
         	} else {
-        		Toast.makeText(getBaseContext(), "Other", Toast.LENGTH_SHORT).show();
+        		Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_SHORT).show();
         		return;
         	}
         }
-        File imageFile = new File(selectedImagePath);
-    	Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-    	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
-    	
-    	ImageView image = (ImageView) findViewById(R.id.viewer);
-    	image.setImageBitmap(bit2);
-    	
+//    	Bitmap bitmap = BitmapFactory.decodeFile(selectedImagePath.getPath());
+//    	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
+//    	
+//    	ImageView image = (ImageView) findViewById(R.id.viewer);
+//    	image.setImageBitmap(bit2);
+    	//bit2=null;
 //    	DoBlackandWhite bwProcess = new DoBlackandWhite(bit2);
 //    	bit2 = bwProcess.doBW();
 //    	
@@ -135,12 +133,12 @@ public class SheetSnapshot extends Activity {
     
     public void processImage(View view) {
     	Intent intent = new Intent(this, ProcessActivity.class);
-    	intent.putExtra("IMAGE_PATH", selectedImagePath);
+    	intent.putExtra("IMAGE_PATH", selectedImagePath.getPath());
     	startActivity(intent);
     }
     
     /** Create a File for saving the image */
-	private static String getOutputMediaFilePath(String fileName){
+	private static Uri getOutputMediaFilePath(String fileName){
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 	              Environment.DIRECTORY_PICTURES), "Noteable");
@@ -153,8 +151,8 @@ public class SheetSnapshot extends Activity {
 	    }
 
 	    // Create a media file name
-	    return mediaStorageDir.getPath() + File.separator + fileName;
-
+	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator + fileName);
+	    return Uri.fromFile(mediaFile);
 	}
 	
 
