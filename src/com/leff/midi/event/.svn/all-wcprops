@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/31/trunk/src/com/leff/midi/event
+END
+NoteOff.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/NoteOff.java
+END
+PitchBend.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/31/trunk/src/com/leff/midi/event/PitchBend.java
+END
+NoteOn.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/NoteOn.java
+END
+Controller.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/Controller.java
+END
+MidiEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/MidiEvent.java
+END
+NoteAftertouch.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/NoteAftertouch.java
+END
+ChannelEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/28/trunk/src/com/leff/midi/event/ChannelEvent.java
+END
+ProgramChange.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/ProgramChange.java
+END
+ChannelAftertouch.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/ChannelAftertouch.java
+END
+SystemExclusiveEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/23/trunk/src/com/leff/midi/event/SystemExclusiveEvent.java
+END

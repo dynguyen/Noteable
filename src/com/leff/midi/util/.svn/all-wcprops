@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/30/trunk/src/com/leff/midi/util
+END
+MidiUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/21/trunk/src/com/leff/midi/util/MidiUtil.java
+END
+VariableLengthInt.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/16/trunk/src/com/leff/midi/util/VariableLengthInt.java
+END
+MidiProcessor.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/30/trunk/src/com/leff/midi/util/MidiProcessor.java
+END
+MidiEventListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/6/trunk/src/com/leff/midi/util/MidiEventListener.java
+END
