@@ -28,19 +28,14 @@ import android.graphics.Color;
 import android.util.Log;
 
 public class DoBlackandWhite
-{
-	private Bitmap buffImage;
-	
-	public DoBlackandWhite(Bitmap buffImage)
+{	
+	public static Bitmap doBW(Bitmap buffImage)
 	{
 		int scaledWidth = buffImage.getWidth() / 2;
 		int scaledHeight = buffImage.getHeight() / 2;
 		Bitmap scaledDownImage = Bitmap.createScaledBitmap(buffImage, scaledWidth, scaledHeight, false);
-		this.buffImage = scaledDownImage.copy(Bitmap.Config.ARGB_8888, true);
-	}
-	
-	public Bitmap doBW()
-	{
+		buffImage = scaledDownImage.copy(Bitmap.Config.ARGB_8888, true);
+		scaledDownImage = null;
 		float colorTotal = 0;
 		float[] hsbVals = new float[3];
 		//determine color average based on HSB brightness

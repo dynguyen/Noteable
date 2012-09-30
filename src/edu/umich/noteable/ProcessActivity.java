@@ -48,8 +48,7 @@ public class ProcessActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         String imagePath = getIntent().getExtras().getString("IMAGE_PATH");
         image = BitmapFactory.decodeFile(imagePath);
-        ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(image, 2048, 2048, true));
+        
         ANNInterrogator ann = ANNInterrogator.getInstance(getBaseContext());
         neuralNetwork = ann.getNeuralNetwork();
     }
@@ -72,9 +71,11 @@ public class ProcessActivity extends Activity {
     }
 
     public void processImage(View view) {
-    	DoBlackandWhite bwProcess = new DoBlackandWhite(image);
-    	Bitmap processedImage = bwProcess.doBW();
+    	Bitmap processedImage = DoBlackandWhite.doBW(image);
+    	ImageView imageView = (ImageView) findViewById(R.id.imageView1);
+        imageView.setImageBitmap(processedImage);
     	YProjection yproj = new YProjection(processedImage);
+    	
     	yproj.calcYProjection(0, processedImage.getHeight(), 0, processedImage.getWidth());
     	
     	StaveParameters params = new StaveParameters(processedImage);
