@@ -63,26 +63,26 @@ public class DoBlackandWhite
 				}
 			}
 		
-		for (int i=1; i<buffImage.getWidth()-1; i+=1)
-			for (int j=1; j<buffImage.getHeight()-1; j+=1)
-			{
-				if (buffImage.getPixel(i, j) == 0)
-				{
-					int p1 = buffImage.getPixel(i-1, j-1);
-					int p2 = buffImage.getPixel(i-1, j);
-					int p3 = buffImage.getPixel(i-1, j+1);
-					int p4 = buffImage.getPixel(i, j-1);
-					int p5 = buffImage.getPixel(i, j+1);
-					int p6 = buffImage.getPixel(i-1, j-1);
-					int p7 = buffImage.getPixel(i-1, j);
-					int p8 = buffImage.getPixel(i-1, j+1);
-				
-					if (p1==-1 && p2==-1 && p3==-1 && p4==-1 && p5==-1 && p6==-1 && p7==-1 && p8==-1)
-					{
-						buffImage.setPixel(i, j, -1);
-					}
-				}
-			}
+//		for (int i=1; i<buffImage.getWidth()-1; i+=1)
+//			for (int j=1; j<buffImage.getHeight()-1; j+=1)
+//			{
+//				if (buffImage.getPixel(i, j) == 0)
+//				{
+//					int p1 = buffImage.getPixel(i-1, j-1);
+//					int p2 = buffImage.getPixel(i-1, j);
+//					int p3 = buffImage.getPixel(i-1, j+1);
+//					int p4 = buffImage.getPixel(i, j-1);
+//					int p5 = buffImage.getPixel(i, j+1);
+//					int p6 = buffImage.getPixel(i-1, j-1);
+//					int p7 = buffImage.getPixel(i-1, j);
+//					int p8 = buffImage.getPixel(i-1, j+1);
+//				
+//					if (p1==-1 && p2==-1 && p3==-1 && p4==-1 && p5==-1 && p6==-1 && p7==-1 && p8==-1)
+//					{
+//						buffImage.setPixel(i, j, -1);
+//					}
+//				}
+//			}
 		return buffImage;
 	}
 }
