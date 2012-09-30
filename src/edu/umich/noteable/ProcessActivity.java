@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ProcessActivity extends Activity {
@@ -61,8 +62,12 @@ public class ProcessActivity extends Activity {
     	staveDetection.locateStaves();
     	staveDetection.calcNoteDistance();
     	Log.d("Noteable", "Staves recognized: " + staveDetection.getStaveList().size());
-    	DetectionProcessor processor = new DetectionProcessor(image, staveDetection, neuralNetwork);
-    	processor.processAll();
+    	if (staveDetection.getStaveList().size() == 0) {
+    		Toast.makeText(getBaseContext(), "No staves recognized", Toast.LENGTH_SHORT).show();
+    	} else {
+    		DetectionProcessor processor = new DetectionProcessor(image, staveDetection, neuralNetwork);
+    		processor.processAll();
+    	}
     	
     }
 }

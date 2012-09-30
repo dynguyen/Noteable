@@ -32,7 +32,10 @@ public class DoBlackandWhite
 	
 	public DoBlackandWhite(Bitmap buffImage)
 	{
-		this.buffImage = buffImage.copy(Bitmap.Config.ARGB_8888, true);
+		int scaledWidth = buffImage.getWidth() / 2;
+		int scaledHeight = buffImage.getHeight() / 2;
+		Bitmap scaledDownImage = Bitmap.createScaledBitmap(buffImage, scaledWidth, scaledHeight, false);
+		this.buffImage = scaledDownImage.copy(Bitmap.Config.ARGB_8888, true);
 	}
 	
 	public Bitmap doBW()

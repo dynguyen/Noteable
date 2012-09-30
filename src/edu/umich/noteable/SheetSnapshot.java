@@ -62,7 +62,7 @@ public class SheetSnapshot extends Activity {
    // startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
     	
     	Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    	intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+    	intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
     	//File pictureFile = new File(Environment.getExternalStoragePublicDirectory(
     	//		                         Environment.DIRECTORY_PICTURES), "MyCameraApp");
     	//File picture = new File(pictureFile.getPath()+File.separator + "new" + ".bmp");

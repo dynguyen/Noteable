@@ -74,13 +74,13 @@ public class StaveParameters
 	
 	public StaveParameters(Bitmap buffImage)
 	{
-		this.buffImage = buffImage;
 		wPixels = new int[len];
 		bPixels = new int[len];
-		height = buffImage.getHeight();
-		width = buffImage.getWidth();
+
 		DoBlackandWhite bwProcess = new DoBlackandWhite(buffImage);
 		this.buffImage = bwProcess.doBW();
+		height = this.buffImage.getHeight();
+		width = this.buffImage.getWidth();
 		//calcRLE(0, width - 1);
 		//calcParams();
 	}
