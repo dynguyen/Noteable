@@ -28,6 +28,7 @@ import java.util.LinkedList;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * The <code> StaveDetection </code> class is responsible for detecting all the staves present in a BufferedImage. 
@@ -234,6 +235,8 @@ public class StaveDetection
 			image.setPixel(11, peak.getPos() + 1, Color.RED);
 
 			image.setPixel(10, peak.getPos(), Color.RED);
+			Log.d("Noteable", "Peak Value1" + peak.getValue());
+			
 			}
 		}
 	}
@@ -411,9 +414,12 @@ public class StaveDetection
 				// consider this stave only if previous staveline maximum is >=
 				// than 2/3 of current maximum
 				// 2/3 seems to be a value that works for all test cases
-				int val2 = (int) (next.getValue() * PEAK_THRESHOLD);
-				if (val >= val2)
+				int val2 = (int) (next.getValue());
+				if (val * PEAK_THRESHOLD <= val2)
+				{
+					Log.d("Noteable", "val:" + val + " val2:" + val2);
 					return next;
+				}
 			}
 			next = (StavePeaks) iter.next();
 		}
