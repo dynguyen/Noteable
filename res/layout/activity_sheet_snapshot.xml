@@ -18,45 +18,45 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="@string/guideline_placeholder"
-        android:textSize="30dp" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="44dp"
-        android:onClick="takephoto"
-        android:text="@string/takePic" />
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/viewer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1"
         android:layout_marginTop="98dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_action_search" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_below="@+id/viewer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="138dp"
         android:onClick="loadFile"
         android:text="Load File" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:onClick="takephoto"
+        android:text="@string/takePic" />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignParentRight="true"
-        android:text="@string/nextStep" 
-        android:onClick="processImage"/>
-    
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp"
+        android:onClick="processImage"
+        android:text="@string/nextStep" />
 
 </RelativeLayout>

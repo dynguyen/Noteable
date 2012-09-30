@@ -10,7 +10,7 @@
     <string name="title_activity_sheet_snapshot">SheetSnapshot</string>
     <string name="title_activity_process">Process</string>
     <string name="guidelines_title">Some guidelines:</string>
-    <string name="guideline_placeholder">Coming Soon!</string>
+    <string name="guideline_placeholder">Make the picture as well lit and level as possible </string>
     <string name="takePic">Take Picture</string>
     <string name="nextStep">Next Step</string>
 
