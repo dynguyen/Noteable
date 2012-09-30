@@ -71,9 +71,9 @@ public class ProcessActivity extends Activity {
     }
 
     public void processImage(View view) {
-    	Bitmap processedImage = DoBlackandWhite.doBW(image);
     	ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-        //imageView.setImageBitmap(processedImage);
+    	Bitmap processedImage = DoBlackandWhite.doBW(image);
+        imageView.setImageBitmap(image);
     	YProjection yproj = new YProjection(processedImage);
     	
     	yproj.calcYProjection(0, processedImage.getHeight(), 0, processedImage.getWidth());
