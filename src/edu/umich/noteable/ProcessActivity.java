@@ -1,13 +1,26 @@
 package edu.umich.noteable;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+
 import org.joone.net.NeuralNet;
 
+import com.leff.midi.MidiFile;
+
+import edu.umich.noteable.midi.MidiUtil;
+
 import openomr.ann.ANNInterrogator;
+import openomr.midi.ScoreGenerator;
 import openomr.omr_engine.DetectionProcessor;
 import openomr.omr_engine.StaveDetection;
 import openomr.omr_engine.StaveParameters;
 import openomr.omr_engine.YProjection;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,6 +81,26 @@ public class ProcessActivity extends Activity {
     		DetectionProcessor processor = new DetectionProcessor(image, staveDetection, neuralNetwork);
     		processor.processAll();
     	}
+    	
+    	MidiFile midi = MidiUtil.generate(staveDetection.getStaveList());
+    	File midiStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Noteable");
+    	if (!midiStorageDir.exists()) {
+    		if (!midiStorageDir.mkdirs()) {
+    			Log.d("Noteable", "failed to create directory");
+    		}
+    	}
+    	File midiFile = new File(midiStorageDir.getPath() + File.separator + "out.mid");
+    	try {
+			midi.writeToFile(midiFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+		}
+    	Toast.makeText(getBaseContext(), "Midi file saved", Toast.LENGTH_SHORT).show();
     	
     }
 }

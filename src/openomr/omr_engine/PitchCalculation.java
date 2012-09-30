@@ -119,8 +119,9 @@ public class PitchCalculation
 		return note;
 	}
 	
-	public void printNote()
+	public String printNote()
 	{
+		String outString = "";
 		int tempNote = origNote;
 		if (tempNote < 0)
 		{
@@ -132,20 +133,21 @@ public class PitchCalculation
 			}
 		}
 		if (tempNote % 7 == 0)
-			System.out.print("E ");
+			outString += "E";
 		else if (tempNote % 7 == 1)
-			System.out.print("F ");
+			outString += "F";
 		else if (tempNote % 7 == 2)
-			System.out.print("G ");
+			outString += "G";
 		else if (tempNote % 7 == 3)
-			System.out.print("A ");
+			outString += "A";
 		else if (tempNote % 7 == 4)
-			System.out.print("B ");
+			outString += "B";
 		else if (tempNote % 7 == 5)
-			System.out.print("C ");
+			outString +=  "C";
 		else if (tempNote % 7 == 6)
-			System.out.print("D ");
+			outString +=  "D";
 		
-		System.out.println("- Duration " + duration);
+		outString += "- Duration " + duration;
+		return outString;
 	}
 }
