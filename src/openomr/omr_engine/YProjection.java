@@ -70,13 +70,13 @@ public class YProjection
 
 	public void calcYProjection(int startH, int endH, int startW, int endW)
 	{
-		int height = endH - startH + 1;
+		int height = Math.abs(endH - startH) + 1;
 		this.height = height;
 		yProjection = new int[height];
 
-		for (int i = startH; i < endH; i += 1)
+		for (int i = startH; i < endH && !(i<0); i += 1)
 		{
-			for (int j = startW; j < endW; j += 1)
+			for (int j = startW; j < endW && !(j<0); j += 1)
 			{
 				int color;
 				try
