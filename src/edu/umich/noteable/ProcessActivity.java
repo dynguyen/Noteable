@@ -48,6 +48,9 @@ public class ProcessActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         String imagePath = getIntent().getExtras().getString("IMAGE_PATH");
         image = BitmapFactory.decodeFile(imagePath);
+
+    	ImageView imageView = (ImageView) findViewById(R.id.imageView1);
+        imageView.setImageBitmap(image);
         
         ANNInterrogator ann = ANNInterrogator.getInstance(getBaseContext());
         neuralNetwork = ann.getNeuralNetwork();
