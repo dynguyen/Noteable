@@ -23,48 +23,67 @@
 
 package openomr.imageprocessing;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 
 public class DoBlackandWhite
 {
-	private BufferedImage buffImage;
+	private Bitmap buffImage;
 	
-	public DoBlackandWhite(BufferedImage buffImage)
+	public DoBlackandWhite(Bitmap buffImage)
 	{
-		this.buffImage = buffImage;
+		this.buffImage = buffImage.copy(Bitmap.Config.ARGB_8888, true);
 	}
 	
-	public void doBW()
+	public Bitmap doBW()
 	{
+		float colorTotal = 0;
+		float[] hsbVals = new float[3];
+		//determine color average based on HSB brightness
 		for (int i=0; i<buffImage.getHeight(); i+=1)
 			for (int j=0; j<buffImage.getWidth(); j+=1)
 			{
-				int pix = buffImage.getRGB(j, i);
+				int pix = buffImage.getPixel(j, i);
+				Color.RGBToHSV(Color.red(pix), Color.green(pix), Color.blue(pix), hsbVals);
+				colorTotal += hsbVals[2];
+			}
+		
+		float colorAverage = colorTotal / (buffImage.getHeight() * buffImage.getWidth());
+		
+		//converts pixels to black or white depending on comparison to color average
+		for (int i=0; i<buffImage.getHeight(); i+=1)
+			for (int j=0; j<buffImage.getWidth(); j+=1)
+			{
+				int pix = buffImage.getPixel(j, i);
 				//if it's not a black or white pixel, set it to white
-				if (pix != Color.WHITE.getRGB() && pix != Color.BLACK.getRGB())
-					buffImage.setRGB(j, i, Color.BLACK.getRGB());
+				Color.RGBToHSV(Color.red(pix), Color.green(pix), Color.blue(pix), hsbVals);
+				if(hsbVals[2] < colorAverage) {
+					buffImage.setPixel(j, i, Color.BLACK);
+				} else {
+					buffImage.setPixel(j, i, Color.WHITE);
+				}
 			}
 		
 		for (int i=1; i<buffImage.getWidth()-1; i+=1)
 			for (int j=1; j<buffImage.getHeight()-1; j+=1)
 			{
-				if (buffImage.getRGB(i, j) == 0)
+				if (buffImage.getPixel(i, j) == 0)
 				{
-					int p1 = buffImage.getRGB(i-1, j-1);
-					int p2 = buffImage.getRGB(i-1, j);
-					int p3 = buffImage.getRGB(i-1, j+1);
-					int p4 = buffImage.getRGB(i, j-1);
-					int p5 = buffImage.getRGB(i, j+1);
-					int p6 = buffImage.getRGB(i-1, j-1);
-					int p7 = buffImage.getRGB(i-1, j);
-					int p8 = buffImage.getRGB(i-1, j+1);
+					int p1 = buffImage.getPixel(i-1, j-1);
+					int p2 = buffImage.getPixel(i-1, j);
+					int p3 = buffImage.getPixel(i-1, j+1);
+					int p4 = buffImage.getPixel(i, j-1);
+					int p5 = buffImage.getPixel(i, j+1);
+					int p6 = buffImage.getPixel(i-1, j-1);
+					int p7 = buffImage.getPixel(i-1, j);
+					int p8 = buffImage.getPixel(i-1, j+1);
 				
 					if (p1==-1 && p2==-1 && p3==-1 && p4==-1 && p5==-1 && p6==-1 && p7==-1 && p8==-1)
 					{
-						buffImage.setRGB(i, j, -1);
+						buffImage.setPixel(i, j, -1);
 					}
 				}
 			}
+		return buffImage;
 	}
 }

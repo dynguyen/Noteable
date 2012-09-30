@@ -25,6 +25,8 @@ package openomr.omr_engine;
 
 import java.awt.image.*;
 
+import openomr.imageprocessing.DoBlackandWhite;
+
 import android.graphics.Bitmap;
 
 /** The <code> StaveParameters </code> is a class responsible for calculating two important paramters
@@ -77,7 +79,8 @@ public class StaveParameters
 		bPixels = new int[len];
 		height = buffImage.getHeight();
 		width = buffImage.getWidth();
-
+		DoBlackandWhite bwProcess = new DoBlackandWhite(buffImage);
+		this.buffImage = bwProcess.doBW();
 		//calcRLE(0, width - 1);
 		//calcParams();
 	}

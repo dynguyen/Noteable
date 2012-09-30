@@ -217,8 +217,7 @@ public class L1_Segment
 	}
 	
 	private double[] prepareImage(Bitmap image, int x, int y, int w, int h) {
-		String logString = "x: " + x + " y: " + y + " w: " + w + " h:" + h;
-		Log.d("Noteable", logString);
+
 		double inputs[] = new double[128];
 		//pixGrabber.grabPixels();
 		int pixArray[] = new int[1000000];

@@ -60,13 +60,9 @@ public class ProcessActivity extends Activity {
     	StaveDetection staveDetection = new StaveDetection(yproj, params);
     	staveDetection.locateStaves();
     	staveDetection.calcNoteDistance();
-    	Log.d("Noteable", String.valueOf(staveDetection.getStaveList().size()));
+    	Log.d("Noteable", "Staves recognized: " + staveDetection.getStaveList().size());
     	DetectionProcessor processor = new DetectionProcessor(image, staveDetection, neuralNetwork);
     	processor.processAll();
     	
-    }
-    
-    public void loadExampleImage(View view) {
-    	image = BitmapFactory.decodeFile("/storage/sdcard0/Pictures/MyCameraApp/sample.png");
     }
 }
