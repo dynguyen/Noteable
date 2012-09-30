@@ -19,6 +19,9 @@ import openomr.omr_engine.DetectionProcessor;
 import openomr.omr_engine.StaveDetection;
 import openomr.omr_engine.StaveParameters;
 import openomr.omr_engine.YProjection;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -100,8 +103,31 @@ public class ProcessActivity extends Activity {
     		}
         	Toast.makeText(getBaseContext(), "Midi file saved", Toast.LENGTH_SHORT).show();
     	}
-    	
-    	
+    }
+    
+    public void playMusic(View view) {
+    	File midiStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Noteable");
+    	File midiFile = new File(midiStorageDir.getPath() + File.separator + "out.mid");
+    	Uri midiUri = Uri.fromFile(midiFile);
+    	MediaPlayer player = new MediaPlayer();
+    	player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    	try {
+			player.setDataSource(getBaseContext(), midiUri);
+			player.prepare();
+			player.start();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     }
 }
