@@ -80,27 +80,28 @@ public class ProcessActivity extends Activity {
     	} else {
     		DetectionProcessor processor = new DetectionProcessor(image, staveDetection, neuralNetwork);
     		processor.processAll();
+    		MidiFile midi = MidiUtil.generate(staveDetection.getStaveList());
+        	File midiStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Noteable");
+        	if (!midiStorageDir.exists()) {
+        		if (!midiStorageDir.mkdirs()) {
+        			Log.d("Noteable", "failed to create directory");
+        		}
+        	}
+        	File midiFile = new File(midiStorageDir.getPath() + File.separator + "out.mid");
+        	try {
+    			midi.writeToFile(midiFile);
+    		} catch (FileNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+    		}
+        	Toast.makeText(getBaseContext(), "Midi file saved", Toast.LENGTH_SHORT).show();
     	}
     	
-    	MidiFile midi = MidiUtil.generate(staveDetection.getStaveList());
-    	File midiStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), "Noteable");
-    	if (!midiStorageDir.exists()) {
-    		if (!midiStorageDir.mkdirs()) {
-    			Log.d("Noteable", "failed to create directory");
-    		}
-    	}
-    	File midiFile = new File(midiStorageDir.getPath() + File.separator + "out.mid");
-    	try {
-			midi.writeToFile(midiFile);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-		}
-    	Toast.makeText(getBaseContext(), "Midi file saved", Toast.LENGTH_SHORT).show();
+    	
     	
     }
 }

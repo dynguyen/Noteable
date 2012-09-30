@@ -41,12 +41,12 @@ public class MidiUtil {
 				LinkedList<PitchCalculation> notes = tempPos.getNotes();
 				Log.d("Noteable", "Notes: " + notes.size());
 				for (int j=0; j<notes.size(); j++) {
-					PitchCalculation tempNote = notes.get(i);
+					PitchCalculation tempNote = notes.get(j);
 					Log.d("Noteable", "Pitch: " + tempNote.getNote());
 					//System.out.println("Note: " + (tempNote.getNote()+64));
 					//add(tempNote.getNote()+64, tempNote.getDuration());
-					NoteOn on = new NoteOn(j*480, 0, tempNote.getNote() + 64, 100);
-					NoteOff off = new NoteOff(j*480 + 120, 0, tempNote.getNote() + 64, 0);
+					NoteOn on = new NoteOn(k*480, 0, tempNote.getNote() + 64, 100);
+					NoteOff off = new NoteOff(k*480 + 120, 0, tempNote.getNote() + 64, 0);
 					noteTrack.insertEvent(on);
 					noteTrack.insertEvent(off);
 					//noteTrack.insertNote(0, tempNote.getNote() + 64, 10, 4800, 120);
