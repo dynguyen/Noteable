@@ -2,6 +2,8 @@ package edu.umich.noteable;
 
 import java.io.File;
 
+import openomr.imageprocessing.DoBlackandWhite;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -99,6 +101,12 @@ public class SheetSnapshot extends Activity {
         File imageFile = new File(selectedImagePath);
     	Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
     	Bitmap bit2 = Bitmap.createScaledBitmap(bitmap, 2048, 2048, true);
+    	
+    	//ImageView image = (ImageView) findViewById(R.id.viewer);
+    	//image.setImageBitmap(bit2);
+    	
+    	DoBlackandWhite bit3 = new DoBlackandWhite(bit2);
+    	bit2 = bit3.doBW();
     	
     	ImageView image = (ImageView) findViewById(R.id.viewer);
     	image.setImageBitmap(bit2);

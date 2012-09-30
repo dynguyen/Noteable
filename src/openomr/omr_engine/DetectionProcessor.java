@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import openomr.imageprocessing.CopyImage;
+import openomr.imageprocessing.DoBlackandWhite;
 
 import org.joone.net.NeuralNet;
 
@@ -43,6 +44,7 @@ public class DetectionProcessor
 	
 	public DetectionProcessor(Bitmap buffImage, StaveDetection staveDetection, NeuralNet neuralNetwork)
 	{
+		
 		this.buffImage = buffImage;
 		this.staveDetection = staveDetection;
 	}

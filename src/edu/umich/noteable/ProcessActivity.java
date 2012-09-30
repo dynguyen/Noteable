@@ -3,6 +3,7 @@ package edu.umich.noteable;
 import org.joone.net.NeuralNet;
 
 import openomr.ann.ANNInterrogator;
+import openomr.imageprocessing.DoBlackandWhite;
 import openomr.omr_engine.DetectionProcessor;
 import openomr.omr_engine.StaveDetection;
 import openomr.omr_engine.StaveParameters;
@@ -52,6 +53,9 @@ public class ProcessActivity extends Activity {
     }
 
     public void processImage(View view) {
+    	DoBlackandWhite bwProcess = new DoBlackandWhite(image);
+		image = bwProcess.doBW();
+		
     	YProjection yproj = new YProjection(image);
     	yproj.calcYProjection(0, image.getHeight(), 0, image.getWidth());
     	

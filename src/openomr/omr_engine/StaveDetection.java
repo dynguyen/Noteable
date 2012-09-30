@@ -96,6 +96,7 @@ public class StaveDetection
 			int val = (int) (temp.getValue() * STAVE_THRESHOLD);
 
 			// search backwards bPixel array for values >= to threshold value
+			// this part counts the "thickness" of a line in pixels
 			int count = 1;
 			for (int i = temp.getPos() - 1; i >= 0; i -= 1)
 			{
@@ -374,11 +375,19 @@ public class StaveDetection
 			// If start is in between min and max, we can consider that item
 			else if (next.getStart() >= min && next.getStart() <= max)
 			{
+				// added by Tianyi:
+				// if next peak is more than twice of this peak
+				// we should be considering the next peak as a maximum instead
+				
+				int val1 = next.getValue();
+				if (val * 2 <= val1)
+					return null;
+				
 				// consider this stave only if previous staveline maximum is >=
 				// than 2/3 of current maximum
 				// 2/3 seems to be a value that works for all test cases
-				int val1 = (int) (next.getValue() * PEAK_THRESHOLD);
-				if (val >= val1)
+				int val2 = (int) (next.getValue() * PEAK_THRESHOLD);
+				if (val >= val2)
 					return next;
 			}
 			next = (StavePeaks) iter.next();

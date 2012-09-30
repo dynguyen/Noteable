@@ -77,8 +77,7 @@ public class StaveParameters
 		wPixels = new int[len];
 		bPixels = new int[len];
 
-		DoBlackandWhite bwProcess = new DoBlackandWhite(buffImage);
-		this.buffImage = bwProcess.doBW();
+		this.buffImage = buffImage;
 		height = this.buffImage.getHeight();
 		width = this.buffImage.getWidth();
 		//calcRLE(0, width - 1);

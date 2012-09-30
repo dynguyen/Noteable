@@ -25,6 +25,7 @@ package openomr.imageprocessing;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
 public class DoBlackandWhite
 {
@@ -60,7 +61,7 @@ public class DoBlackandWhite
 				int pix = buffImage.getPixel(j, i);
 				//if it's not a black or white pixel, set it to white
 				Color.RGBToHSV(Color.red(pix), Color.green(pix), Color.blue(pix), hsbVals);
-				if(hsbVals[2] < colorAverage) {
+				if(hsbVals[2] < (colorAverage * 2 / 3)) {
 					buffImage.setPixel(j, i, Color.BLACK);
 				} else {
 					buffImage.setPixel(j, i, Color.WHITE);
