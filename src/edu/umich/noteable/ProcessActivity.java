@@ -73,7 +73,7 @@ public class ProcessActivity extends Activity {
     public void processImage(View view) {
     	Bitmap processedImage = DoBlackandWhite.doBW(image);
     	ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-        imageView.setImageBitmap(processedImage);
+        //imageView.setImageBitmap(processedImage);
     	YProjection yproj = new YProjection(processedImage);
     	
     	yproj.calcYProjection(0, processedImage.getHeight(), 0, processedImage.getWidth());
@@ -109,6 +109,8 @@ public class ProcessActivity extends Activity {
     			Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
     		}
         	Toast.makeText(getBaseContext(), "Midi file saved", Toast.LENGTH_SHORT).show();
+        	staveDetection.addLines(processedImage);
+            imageView.setImageBitmap(processedImage);
     	}
     }
     

@@ -26,6 +26,9 @@ package openomr.omr_engine;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+
 /**
  * The <code> StaveDetection </code> class is responsible for detecting all the staves present in a BufferedImage. 
  * Since the stave detection algorithm needs relies on knowing the stave parameters (n1, n2, d1 and d1) along with
@@ -212,6 +215,28 @@ public class StaveDetection
 	 * between two notes is an important parameter as it will be used by the Midi generator engine to determine
 	 * the pitch of notes.
 	 */
+	
+	public void addLines(Bitmap image)
+	{
+		Iterator it = staveList.iterator();
+		while(true)
+		{
+			if (!it.hasNext())
+			{
+				break;
+			}
+			Staves stave = (Staves) it.next();
+			for (int i = 0; i < 5; i++)
+			{
+			StavePeaks peak = stave.getStave_line(i);
+			image.setPixel(10, peak.getPos(), Color.RED);
+			image.setPixel(10, peak.getPos() + 1, Color.RED);
+			image.setPixel(11, peak.getPos() + 1, Color.RED);
+
+			image.setPixel(10, peak.getPos(), Color.RED);
+			}
+		}
+	}
 	
 	public void calcNoteDistance()
 	{
